@@ -1,2 +1,2 @@
-function output = lcg(x)
-    output = mod(mod(1103515245 * x + 12345, 2^31), 100) + 1;
+function output = lcg(x, c, m, a)
+    output = mod(mod(c * x + a, m), 100) + 1;
