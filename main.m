@@ -86,7 +86,8 @@ elseif rng_choice == 2
     
     printf('\n\n');
 elseif rng_choice == 3
-    rn_arr = generate_exp_variate(total_rn_num);
+    lambda_choice = input('Enter value of lambda (leave blank for default = 0.0482): ');
+    rn_arr = generate_exp_variate(total_rn_num, lambda_choice);
 elseif rng_choice == 4
     rn_arr = generate_uniform_variate(total_rn_num);
 else
