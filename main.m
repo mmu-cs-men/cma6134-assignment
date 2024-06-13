@@ -26,9 +26,9 @@ printf('How many cars do you want to simulate?\n\n');
 max_cars = input('Input: ');
 
 printf('\n\nWould you like to see some graphs at the end of the simulation?\n\n');
-graph_choice = input('Input [y/n]: ', 's');
+graph_choice = input('Input [Y/n]: ', 's');
 
-if strcmpi(graph_choice, 'y')
+if strcmpi(graph_choice, 'y') | isempty(graph_choice)
     graph = 1;
 elseif strcmpi(graph_choice, 'n')
     graph = 0;
