@@ -7,7 +7,7 @@ clear all;
 % Seed the RNG
 % =====================================
 current_time = clock;
-seed(69, floor(current_time(6)));
+seed(69, round(current_time(6)));
 
 % =====================================
 % Print all the probability tables
