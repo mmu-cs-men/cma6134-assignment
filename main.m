@@ -197,3 +197,43 @@ for n=1:length(indices_bay3)
 end
 
 printf('\n');
+
+% =====================================
+% Print simulation results
+% =====================================
+
+% 1. Average waiting time (in general)
+avg_waiting_time = mean(waiting_time_col);
+printf('Average waiting time (in general): %.2f\n', avg_waiting_time);
+
+% 2. Average waiting time (for each wash bay)
+avg_waiting_time_bay1 = mean(waiting_time_col(indices_bay1));
+avg_waiting_time_bay2 = mean(waiting_time_col(indices_bay2));
+avg_waiting_time_bay3 = mean(waiting_time_col(indices_bay3));
+printf('Average waiting time (Bay 1): %.2f\n', avg_waiting_time_bay1);
+printf('Average waiting time (Bay 2): %.2f\n', avg_waiting_time_bay2);
+printf('Average waiting time (Bay 3): %.2f\n', avg_waiting_time_bay3);
+
+% 3. Average inter arrival time
+avg_inter_arrival_time = mean(inter_arrival_col);
+printf('Average inter arrival time: %.2f\n', avg_inter_arrival_time);
+
+% 4. Average time spent
+avg_time_spent = mean(time_spent_col);
+printf('Average time spent: %.2f\n', avg_time_spent);
+
+% 5. Probability that a car has to wait in queue
+prob_wait_in_queue = sum(waiting_time_col > 0) / max_cars;
+printf('Probability that a car has to wait in queue: %.2f\n', prob_wait_in_queue);
+
+% 6. Average service time (for each wash bay)
+avg_service_time_bay1 = mean(service_time_col(indices_bay1));
+avg_service_time_bay2 = mean(service_time_col(indices_bay2));
+avg_service_time_bay3 = mean(service_time_col(indices_bay3));
+printf('Average service time (Bay 1): %.2f\n', avg_service_time_bay1);
+printf('Average service time (Bay 2): %.2f\n', avg_service_time_bay2);
+printf('Average service time (Bay 3): %.2f\n', avg_service_time_bay3);
+
+% 7. Average service time (in general)
+avg_service_time = mean(service_time_col);
+printf('Average service time (in general): %.2f\n', avg_service_time);
