@@ -28,10 +28,12 @@ max_cars = input('Input: ');
 printf('\n\nWould you like to see some graphs at the end of the simulation?\n\n');
 graph_choice = input('Input [y/n]: ', 's');
 
-if strcmp(graph_choice, 'y')
+if strcmpi(graph_choice, 'y')
     graph = 1;
-else
+elseif strcmpi(graph_choice, 'n')
     graph = 0;
+else
+    error('Invalid choice')
 end
 
 printf('\nWhat random number generator would you like to use?\n\n1. FreeMat randi function\n2. Linear Congruential Generator (LCG)\n3. Exponential Variate Generator\n4. Uniform Variate Generator (same distribution as 1 and 2)\n\n');
