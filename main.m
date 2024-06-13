@@ -115,11 +115,16 @@ for n=1:max_cars
     [min_time, bay_index] = min(bay_next_available_time);
     bay_assigned_col(n) = bay_index;
     
+    printf('Car %d arrives at time %d\n', n, arrival_time_col(n));
+    
     if bay_next_available_time(bay_index) <= arrival_time_col(n)
         time_service_begins_col(n) = arrival_time_col(n);
     else
         time_service_begins_col(n) = bay_next_available_time(bay_index);
+        printf('Car %d begins waiting in queue at time %d\n', n, arrival_time_col(n));
     end
+    
+    printf('Car %d begins washing at bay %d at time %d\n', n, bay_index, time_service_begins_col(n));
 
     if bay_index == 1
         service_time_col(n) = transform_to_service_time_bay_1(service_time_rn_col(n));
@@ -134,6 +139,7 @@ for n=1:max_cars
     waiting_time_col(n) = time_service_begins_col(n) - arrival_time_col(n);
     time_spent_col(n) = service_time_col(n) + waiting_time_col(n);
     
+    printf('Car %d departs at time %d\n', n, time_service_ends_col(n));
 end
 
 % =====================================
@@ -147,6 +153,8 @@ table1 = [n_col inter_arrival_rn_col inter_arrival_col arrival_time_col service_
 table2 = [n_col(indices_bay1) service_time_rn_col(indices_bay1) service_time_col(indices_bay1) time_service_begins_col(indices_bay1) time_service_ends_col(indices_bay1) waiting_time_col(indices_bay1) time_spent_col(indices_bay1)];
 table3 = [n_col(indices_bay2) service_time_rn_col(indices_bay2) service_time_col(indices_bay2) time_service_begins_col(indices_bay2) time_service_ends_col(indices_bay2) waiting_time_col(indices_bay2) time_spent_col(indices_bay2)];
 table4 = [n_col(indices_bay3) service_time_rn_col(indices_bay3) service_time_col(indices_bay3) time_service_begins_col(indices_bay3) time_service_ends_col(indices_bay3) waiting_time_col(indices_bay3) time_spent_col(indices_bay3)];
+
+printf('\n\n');
 
 disp('Overall Table:');
 disp('-------------------------------------------------------------------------------------');
