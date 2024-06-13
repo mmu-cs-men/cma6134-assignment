@@ -1,6 +1,6 @@
 function output = transform_to_service_time_bay_1(col)
     cdf = [0.05 0.1 0.2 0.3 0.5 0.65 0.8 0.9 0.95 1];
-    service_times = [6 7 8 9 10 11 12 13 14 15];
+    service_times = [12 13 14 15 16 17 18 19 20 21 22];
     
     output = zeros(size(col));
     
