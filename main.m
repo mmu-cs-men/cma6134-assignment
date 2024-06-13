@@ -25,6 +25,15 @@ printf('\n\n');
 printf('How many cars do you want to simulate?\n\n');
 max_cars = input('Input: ');
 
+printf('\n\nWould you like to see some graphs at the end of the simulation?\n\n');
+graph_choice = input('Input [y/n]: ', 's');
+
+if strcmp(graph_choice, 'y')
+    graph = 1;
+else
+    graph = 0;
+end
+
 printf('\nWhat random number generator would you like to use?\n\n1. FreeMat randi function\n2. Linear Congruential Generator (LCG)\n3. Exponential Variate Generator\n4. Uniform Variate Generator (same distribution as 1 and 2)\n\n');
 rng_choice = input('Input: ');
 
@@ -229,3 +238,28 @@ printf('Average service time (Bay 3): %.2f\n', avg_service_time_bay3);
 
 avg_service_time = mean(service_time_col);
 printf('Average service time (in general): %.2f\n', avg_service_time);
+
+% =====================================
+% Graphs
+% =====================================
+if graph
+    % Inter Arrival Time Histogram
+    figure;
+    hist(inter_arrival_col);
+    title('Inter-Arrival Time Frequency');
+
+    % Service Time Histogram (Bay 1)
+    figure;
+    hist(service_time_col(indices_bay1));
+    title('Service Time Frequency (Bay 1)');
+
+    % Service Time Histogram (Bay 2)
+    figure;
+    hist(service_time_col(indices_bay2));
+    title('Service Time Frequency (Bay 2)');
+
+    % Service Time Histogram (Bay 3)
+    figure;
+    hist(service_time_col(indices_bay3));
+    title('Service Time Frequency (Bay 3)');
+end
