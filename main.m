@@ -71,21 +71,23 @@ elseif rng_choice == 2
         c = input('Input multiplier (c): ');
         a = input('Input increment (a): ');
         x = input('Input seed (X_0): ');
-        rn_arr(1) = generate_lcg(max_cars, x, c, m, a);
+        temp1 = generate_lcg(max_cars, x, c, m, a);
         
         printf('\n\nEnter parameters for inter arrival times:\n\n');
         m = input('Input modulus (m): ');
         c = input('Input multiplier (c): ');
         a = input('Input increment (a): ');
         x = input('Input seed (X_0): ');
-        rn_arr(2) = generate_lcg(max_cars, x, c, m, a);
+        temp2 = generate_lcg(max_cars, x, c, m, a);
         
         printf('\n\nEnter parameters for service types:\n\n');
         m = input('Input modulus (m): ');
         c = input('Input multiplier (c): ');
         a = input('Input increment (a): ');
         x = input('Input seed (X_0): ');
-        rn_arr(3) = generate_lcg(max_cars, x, c, m, a);
+        temp3 = generate_lcg(max_cars, x, c, m, a);
+        
+        rn_arr = [temp1; temp2; temp3];
     else
         error('Invalid choice');
     end
