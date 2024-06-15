@@ -251,24 +251,26 @@ printf('Average service time (in general): %.2f\n', avg_service_time);
 % =====================================
 % Graphs
 % =====================================
-if graph
-    % Inter Arrival Time Histogram
-    figure;
-    hist(inter_arrival_col);
-    title('Inter-Arrival Time Frequency');
+if ~graph
+    return
+end
+
+% Inter Arrival Time Histogram
+figure;
+hist(inter_arrival_col);
+title('Inter-Arrival Time Frequency');
 
     % Service Time Histogram (Bay 1)
-    figure;
-    hist(service_time_col(indices_bay1));
-    title('Service Time Frequency (Bay 1)');
+figure;
+hist(service_time_col(indices_bay1));
+title('Service Time Frequency (Bay 1)');
 
     % Service Time Histogram (Bay 2)
-    figure;
-    hist(service_time_col(indices_bay2));
-    title('Service Time Frequency (Bay 2)');
+figure;
+hist(service_time_col(indices_bay2));
+title('Service Time Frequency (Bay 2)');
 
     % Service Time Histogram (Bay 3)
-    figure;
-    hist(service_time_col(indices_bay3));
-    title('Service Time Frequency (Bay 3)');
-end
+figure;
+hist(service_time_col(indices_bay3));
+title('Service Time Frequency (Bay 3)');
