@@ -23,7 +23,13 @@ printf('\n\n');
 % User input section
 % =====================================
 printf('How many cars do you want to simulate?\n\n');
-max_cars = input('Input: ');
+max_cars = input('Input: ', 's');
+
+if ~all(isdigit(max_cars))
+    error('Invalid input. Cars must be an integer.');
+end
+
+max_cars = str2num(max_cars);
 
 printf('\n\nWould you like to see some graphs at the end of the simulation?\n\n');
 graph_choice = input('Input [Y/n]: ', 's');
