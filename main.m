@@ -60,32 +60,16 @@ elseif rng_choice == 2
     
     if lcg_choice == 1
         printf('\n\nEnter parameters for all LCGs:\n\n');
-        m = input('Input modulus (m): ');
-        c = input('Input multiplier (c): ');
-        a = input('Input increment (a): ');
-        x = input('Input seed (X_0): ');
-        rn_arr = generate_lcg(total_rn_num, x, c, m, a);
+        rn_arr = ask_lcg(total_rn_num);
     elseif lcg_choice == 2
         printf('\n\nEnter parameters for wash bay service times:\n\n');
-        m = input('Input modulus (m): ');
-        c = input('Input multiplier (c): ');
-        a = input('Input increment (a): ');
-        x = input('Input seed (X_0): ');
-        temp1 = generate_lcg(max_cars, x, c, m, a);
+        temp1 = ask_lcg(max_cars);
         
         printf('\n\nEnter parameters for inter arrival times:\n\n');
-        m = input('Input modulus (m): ');
-        c = input('Input multiplier (c): ');
-        a = input('Input increment (a): ');
-        x = input('Input seed (X_0): ');
-        temp2 = generate_lcg(max_cars, x, c, m, a);
+        temp2 = ask_lcg(max_cars);
         
         printf('\n\nEnter parameters for service types:\n\n');
-        m = input('Input modulus (m): ');
-        c = input('Input multiplier (c): ');
-        a = input('Input increment (a): ');
-        x = input('Input seed (X_0): ');
-        temp3 = generate_lcg(max_cars, x, c, m, a);
+        temp3 = ask_lcg(max_cars);
         
         rn_arr = [temp1; temp2; temp3];
     else
