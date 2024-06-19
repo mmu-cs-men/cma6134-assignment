@@ -2,7 +2,7 @@ function output = generate_exp_variate(row_num, lambda)
     % After running some simulations, this was determined to be the
     % best value for lambda that would yield values between [1,100]    
     if isempty(lambda)
-        lambda = 0.0482;
+        lambda = 0.05;
     end
     
     % Exp. variate generator outputs floats but the range should only 

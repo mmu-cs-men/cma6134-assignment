@@ -78,7 +78,7 @@ elseif rng_choice == 2
     
     printf('\n\n');
 elseif rng_choice == 3
-    lambda_choice = input('Enter value of lambda (leave blank for default = 0.0482): ');
+    lambda_choice = input('Enter value of lambda (leave blank for default = 0.05): ');
     rn_arr = generate_exp_variate(total_rn_num, lambda_choice);
 elseif rng_choice == 4
     rn_arr = generate_uniform_variate(total_rn_num);
@@ -246,17 +246,17 @@ figure;
 hist(inter_arrival_col);
 title('Inter-Arrival Time Frequency');
 
-    % Service Time Histogram (Bay 1)
+% Service Time Histogram (Bay 1)
 figure;
 hist(service_time_col(indices_bay1));
 title('Service Time Frequency (Bay 1)');
 
-    % Service Time Histogram (Bay 2)
+% Service Time Histogram (Bay 2)
 figure;
 hist(service_time_col(indices_bay2));
 title('Service Time Frequency (Bay 2)');
 
-    % Service Time Histogram (Bay 3)
+% Service Time Histogram (Bay 3)
 figure;
 hist(service_time_col(indices_bay3));
 title('Service Time Frequency (Bay 3)');
