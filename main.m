@@ -90,10 +90,12 @@ end
 % Run the simulation
 % =====================================
 n_col = [1:max_cars]';
+
 inter_arrival_rn_col = rn_arr(1+max_cars : max_cars*2);
 inter_arrival_col = transform_to_inter_arrival(inter_arrival_rn_col);
 
 arrival_time_col = zeros(max_cars, 1);
+
 for n=2:max_cars
     arrival_time_col(n) = arrival_time_col(n-1) + inter_arrival_col(n);    
 end
@@ -113,47 +115,36 @@ time_spent_col = zeros(max_cars, 1);
 bay_assigned_col = zeros(max_cars, 1);
 service_time_col = zeros(max_cars, 1);
 
-queue = [];
-
 for n=1:max_cars
-    queue = [queue; n];
+    [min_time, bay_index] = min(bay_next_available_time);
+    bay_assigned_col(n) = bay_index;
     
-    % Choose the bay that will minimize waiting time for this car
-    while ~isempty(queue)
-        car_index = queue(1);
-        [min_time, bay_index] = min(bay_next_available_time);
-        
-        bay_assigned_col(car_index) = bay_index;
-        printf('Car %d arrives at time %d\n', car_index, arrival_time_col(car_index));
-        
-        if bay_next_available_time(bay_index) <= arrival_time_col(car_index)
-            time_service_begins_col(car_index) = arrival_time_col(car_index);
-        else
-            time_service_begins_col(car_index) = bay_next_available_time(bay_index);
-            printf('Car %d begins waiting in queue at time %d\n', car_index, arrival_time_col(car_index));
-        end
-        
-        printf('Car %d begins washing at bay %d at time %d\n', car_index, bay_index, time_service_begins_col(car_index));
-        
-        if bay_index == 1
-            service_time_col(car_index) = transform_to_service_time_bay_1(service_time_rn_col(car_index));
-        elseif bay_index == 2
-            service_time_col(car_index) = transform_to_service_time_bay_2(service_time_rn_col(car_index));        
-        else
-            service_time_col(car_index) = transform_to_service_time_bay_3(service_time_rn_col(car_index));
-        end
-        
-        bay_next_available_time(bay_index) = time_service_begins_col(car_index) + service_time_col(car_index);
-        time_service_ends_col(car_index) = time_service_begins_col(car_index) + service_time_col(car_index);    
-        waiting_time_col(car_index) = time_service_begins_col(car_index) - arrival_time_col(car_index);
-        time_spent_col(car_index) = service_time_col(car_index) + waiting_time_col(car_index);
-        
-        printf('Car %d departs at time %d\n', car_index, time_service_ends_col(car_index));
-        
-        queue = queue(2:end);
+    printf('Car %d arrives at time %d\n', n, arrival_time_col(n));
+    
+    if bay_next_available_time(bay_index) <= arrival_time_col(n)
+        time_service_begins_col(n) = arrival_time_col(n);
+    else
+        time_service_begins_col(n) = bay_next_available_time(bay_index);
+        printf('Car %d begins waiting in queue at time %d\n', n, arrival_time_col(n));
     end
-end
+    
+    printf('Car %d begins washing at bay %d at time %d\n', n, bay_index, time_service_begins_col(n));
 
+    if bay_index == 1
+        service_time_col(n) = transform_to_service_time_bay_1(service_time_rn_col(n));
+    elseif bay_index == 2
+        service_time_col(n) = transform_to_service_time_bay_2(service_time_rn_col(n));        
+    else
+        service_time_col(n) = transform_to_service_time_bay_3(service_time_rn_col(n));
+    end
+    
+    bay_next_available_time(bay_index) = time_service_begins_col(n) + service_time_col(n);
+    time_service_ends_col(n) = time_service_begins_col(n) + service_time_col(n);    
+    waiting_time_col(n) = time_service_begins_col(n) - arrival_time_col(n);
+    time_spent_col(n) = service_time_col(n) + waiting_time_col(n);
+    
+    printf('Car %d departs at time %d\n', n, time_service_ends_col(n));
+end
 
 % =====================================
 % Construct and print final tables
