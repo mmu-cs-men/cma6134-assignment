@@ -113,45 +113,36 @@ time_spent_col = zeros(max_cars, 1);
 bay_assigned_col = zeros(max_cars, 1);
 service_time_col = zeros(max_cars, 1);
 
-queue = [];
-
 for n=1:max_cars
-    queue = [queue; n];
-    
-    % Choose the bay that will minimize waiting time for this car
-    while ~isempty(queue)
-        car_index = queue(1);
-        [min_time, bay_index] = min(bay_next_available_time);
-        
-        bay_assigned_col(car_index) = bay_index;
-        printf('Car %d arrives at time %d\n', car_index, arrival_time_col(car_index));
-        
-        if bay_next_available_time(bay_index) <= arrival_time_col(car_index)
-            time_service_begins_col(car_index) = arrival_time_col(car_index);
-        else
-            time_service_begins_col(car_index) = bay_next_available_time(bay_index);
-            printf('Car %d begins waiting in queue at time %d\n', car_index, arrival_time_col(car_index));
-        end
-        
-        printf('Car %d begins washing at bay %d at time %d\n', car_index, bay_index, time_service_begins_col(car_index));
-        
-        if bay_index == 1
-            service_time_col(car_index) = transform_to_service_time_bay_1(service_time_rn_col(car_index));
-        elseif bay_index == 2
-            service_time_col(car_index) = transform_to_service_time_bay_2(service_time_rn_col(car_index));        
-        else
-            service_time_col(car_index) = transform_to_service_time_bay_3(service_time_rn_col(car_index));
-        end
-        
-        bay_next_available_time(bay_index) = time_service_begins_col(car_index) + service_time_col(car_index);
-        time_service_ends_col(car_index) = time_service_begins_col(car_index) + service_time_col(car_index);    
-        waiting_time_col(car_index) = time_service_begins_col(car_index) - arrival_time_col(car_index);
-        time_spent_col(car_index) = service_time_col(car_index) + waiting_time_col(car_index);
-        
-        printf('Car %d departs at time %d\n', car_index, time_service_ends_col(car_index));
-        
-        queue = queue(2:end);
+    car_index = n;
+    [min_time, bay_index] = min(bay_next_available_time);
+
+    bay_assigned_col(car_index) = bay_index;
+    printf('Car %d arrives at time %d\n', car_index, arrival_time_col(car_index));
+
+    if bay_next_available_time(bay_index) <= arrival_time_col(car_index)
+        time_service_begins_col(car_index) = arrival_time_col(car_index);
+    else
+        time_service_begins_col(car_index) = bay_next_available_time(bay_index);
+        printf('Car %d begins waiting in queue at time %d\n', car_index, arrival_time_col(car_index));
     end
+
+    printf('Car %d begins washing at bay %d at time %d\n', car_index, bay_index, time_service_begins_col(car_index));
+
+    if bay_index == 1
+        service_time_col(car_index) = transform_to_service_time_bay_1(service_time_rn_col(car_index));
+    elseif bay_index == 2
+        service_time_col(car_index) = transform_to_service_time_bay_2(service_time_rn_col(car_index));        
+    else
+        service_time_col(car_index) = transform_to_service_time_bay_3(service_time_rn_col(car_index));
+    end
+
+    bay_next_available_time(bay_index) = time_service_begins_col(car_index) + service_time_col(car_index);
+    time_service_ends_col(car_index) = time_service_begins_col(car_index) + service_time_col(car_index);    
+    waiting_time_col(car_index) = time_service_begins_col(car_index) - arrival_time_col(car_index);
+    time_spent_col(car_index) = service_time_col(car_index) + waiting_time_col(car_index);
+
+    printf('Car %d departs at time %d\n', car_index, time_service_ends_col(car_index));
 end
 
 
